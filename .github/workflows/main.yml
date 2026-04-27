@@ -4,11 +4,12 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:  
+  workflow_dispatch: 
 
 jobs:
-  backend:
-    runs-on: ubuntu-latest 
+  deploy:
+    runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -18,41 +19,23 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install Backend
+      - name: Install & Build Full App
         run: |
-          cd mern-ecommerce/backend
           npm install
+          npm run build
 
+      # Deploy Backend
       - name: Deploy Backend
         uses: azure/webapps-deploy@v2
         with:
           app-name: ecommerce-backend-27-04
           publish-profile: ${{ secrets.AZURE_BACKEND_PUBLISH_PROFILE }}
-          package: mern-ecommerce/backend
+          package: .
 
-  frontend:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-
-      - name: Build Frontend
-        run: |
-          cd mern-ecommerce/frontend
-          npm install
-          npm run build
-      
-      - name: Debug build output
-        run: ls -R mern-ecommerce/frontend
-
+      # Deploy Frontend (build output)
       - name: Deploy Frontend
         uses: azure/webapps-deploy@v2
         with:
-          app-name: ecommerce-frontend-27-04
+          app-name: ecommerce-frontend-<your-name>
           publish-profile: ${{ secrets.AZURE_FRONTEND_PUBLISH_PROFILE }}
-          package: mern-ecommerce/frontend/build
+          package: ./frontend/build
