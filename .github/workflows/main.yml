@@ -46,6 +46,9 @@ jobs:
           cd mern-ecommerce/frontend
           npm install
           npm run build
+      
+      - name: Debug build output
+        run: ls -R mern-ecommerce/frontend
 
       - name: Deploy Frontend
         uses: azure/webapps-deploy@v2
