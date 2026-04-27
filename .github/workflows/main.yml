@@ -20,7 +20,7 @@ jobs:
 
       - name: Install Backend
         run: |
-          cd backend
+          cd mern-ecommerce/backend
           npm install
 
       - name: Deploy Backend
@@ -43,7 +43,7 @@ jobs:
 
       - name: Build Frontend
         run: |
-          cd frontend
+          cd mern-ecommerce/frontend
           npm install
           npm run build
 
