@@ -37,6 +37,6 @@ jobs:
       - name: Deploy Frontend
         uses: azure/webapps-deploy@v2
         with:
-          app-name: ecommerce-frontend-<your-name>
+          app-name: ecommerce-frontend-27-04
           publish-profile: ${{ secrets.AZURE_FRONTEND_PUBLISH_PROFILE }}
           package: ./frontend/build
